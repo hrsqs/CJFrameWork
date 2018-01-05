@@ -7,8 +7,6 @@
 //
 
 #import "UIImageWebP.h"
-#import <WebP/decode.h>
-#import <WebP/encode.h>
 
 // This gets called when the UIImage gets collected and frees the underlying image.
 static void free_image_data(void *info, const void *data, size_t size)
