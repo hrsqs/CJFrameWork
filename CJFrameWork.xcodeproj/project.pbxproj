@@ -1,0 +1,654 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		9B0F50181DAF4041001EE86B /* MyAggregate */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 9B0F50191DAF4041001EE86B /* Build configuration list for PBXAggregateTarget "MyAggregate" */;
+			buildPhases = (
+				9B0F501C1DAF4046001EE86B /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = MyAggregate;
+			productName = MyAggregate;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		9B0F95331EDE6BC4009F5005 /* CJAppStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B0F95311EDE6BC4009F5005 /* CJAppStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B0F95341EDE6BC4009F5005 /* CJAppStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0F95321EDE6BC4009F5005 /* CJAppStore.m */; };
+		9B1439871EE00D5900000BD6 /* CJCatchException.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B1439851EE00D5900000BD6 /* CJCatchException.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B1439881EE00D5900000BD6 /* CJCatchException.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1439861EE00D5900000BD6 /* CJCatchException.m */; };
+		9B1728A81E7FC14700563EEE /* UIImageWebP.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B1728A61E7FC14700563EEE /* UIImageWebP.h */; };
+		9B1728A91E7FC14700563EEE /* UIImageWebP.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1728A71E7FC14700563EEE /* UIImageWebP.m */; };
+		9B1728AD1E7FC1AE00563EEE /* libwebp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1728AA1E7FC1AE00563EEE /* libwebp.a */; };
+		9B1728AE1E7FC1AE00563EEE /* libwebpdemux.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1728AB1E7FC1AE00563EEE /* libwebpdemux.a */; };
+		9B1728AF1E7FC1AE00563EEE /* libwebpmux.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1728AC1E7FC1AE00563EEE /* libwebpmux.a */; };
+		9B1728B41E7FCBBC00563EEE /* UIImage+CJWebP.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B1728B21E7FCBBC00563EEE /* UIImage+CJWebP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B1728B51E7FCBBC00563EEE /* UIImage+CJWebP.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1728B31E7FCBBC00563EEE /* UIImage+CJWebP.m */; };
+		9B6DB7871E7A64EF0033BA32 /* CJFrameWorkManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B6DB77D1E7A64EF0033BA32 /* CJFrameWorkManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B6DB7881E7A64EF0033BA32 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9B6DB77E1E7A64EF0033BA32 /* Info.plist */; };
+		9B6DB7891E7A64EF0033BA32 /* NSData+CJBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B6DB77F1E7A64EF0033BA32 /* NSData+CJBase64.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B6DB78A1E7A64EF0033BA32 /* NSData+CJBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6DB7801E7A64EF0033BA32 /* NSData+CJBase64.m */; };
+		9B6DB78B1E7A64EF0033BA32 /* CJParseOnlineData.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B6DB7811E7A64EF0033BA32 /* CJParseOnlineData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B6DB78C1E7A64EF0033BA32 /* CJParseOnlineData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6DB7821E7A64EF0033BA32 /* CJParseOnlineData.m */; };
+		9B6DB78D1E7A64EF0033BA32 /* CJWebData.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B6DB7831E7A64EF0033BA32 /* CJWebData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B6DB78E1E7A64EF0033BA32 /* CJWebData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6DB7841E7A64EF0033BA32 /* CJWebData.m */; };
+		9B6DB78F1E7A64EF0033BA32 /* CJWebService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B6DB7851E7A64EF0033BA32 /* CJWebService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B6DB7901E7A64EF0033BA32 /* CJWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6DB7861E7A64EF0033BA32 /* CJWebService.m */; };
+		9B6DB7991E7A66A80033BA32 /* ExtAudioConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B6DB7931E7A66A80033BA32 /* ExtAudioConverter.h */; };
+		9B6DB79A1E7A66A80033BA32 /* ExtAudioConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6DB7941E7A66A80033BA32 /* ExtAudioConverter.m */; };
+		9B6DB79B1E7A66A80033BA32 /* lame.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B6DB7951E7A66A80033BA32 /* lame.h */; };
+		9B6DB79C1E7A66A80033BA32 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6DB7961E7A66A80033BA32 /* libmp3lame.a */; };
+		9B6DB79D1E7A66A80033BA32 /* CJAudioTool.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B6DB7971E7A66A80033BA32 /* CJAudioTool.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B6DB79E1E7A66A80033BA32 /* CJAudioTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6DB7981E7A66A80033BA32 /* CJAudioTool.m */; };
+		9B6DB7A01E7A66D70033BA32 /* CJHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B6DB79F1E7A66D70033BA32 /* CJHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B8549551EA8A70400A19895 /* amrFileCodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B8549471EA8A70400A19895 /* amrFileCodec.h */; };
+		9B8549561EA8A70400A19895 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B8549481EA8A70400A19895 /* amrFileCodec.mm */; };
+		9B8549571EA8A70400A19895 /* wav.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B8549491EA8A70400A19895 /* wav.h */; };
+		9B8549581EA8A70400A19895 /* wav.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B85494A1EA8A70400A19895 /* wav.mm */; };
+		9B8549591EA8A70400A19895 /* EMVoiceConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B85494B1EA8A70400A19895 /* EMVoiceConverter.h */; };
+		9B85495A1EA8A70400A19895 /* EMVoiceConverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B85494C1EA8A70400A19895 /* EMVoiceConverter.mm */; };
+		9B85495B1EA8A70400A19895 /* interf_dec.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B85494E1EA8A70400A19895 /* interf_dec.h */; };
+		9B85495C1EA8A70400A19895 /* interf_enc.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B85494F1EA8A70400A19895 /* interf_enc.h */; };
+		9B85495D1EA8A70400A19895 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8549501EA8A70400A19895 /* libopencore-amrnb.a */; };
+		9B85495E1EA8A70400A19895 /* dec_if.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B8549521EA8A70400A19895 /* dec_if.h */; };
+		9B85495F1EA8A70400A19895 /* if_rom.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B8549531EA8A70400A19895 /* if_rom.h */; };
+		9B8549601EA8A70400A19895 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8549541EA8A70400A19895 /* libopencore-amrwb.a */; };
+		9BCC56821F04EEC3001EE34A /* CJHTTPConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BCC56801F04EEC3001EE34A /* CJHTTPConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9BCC56831F04EEC3001EE34A /* CJHTTPConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCC56811F04EEC3001EE34A /* CJHTTPConfig.m */; };
+		9BCC56861F04F184001EE34A /* CJHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BCC56841F04F184001EE34A /* CJHTTPRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9BCC56871F04F184001EE34A /* CJHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCC56851F04F184001EE34A /* CJHTTPRequest.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8784FD891FFE23E900742570 /* WebP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebP.framework; sourceTree = "<group>"; };
+		8784FD8A1FFE23E900742570 /* WebPDecoder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebPDecoder.framework; sourceTree = "<group>"; };
+		9B0F4FFD1DAF3F56001EE86B /* CJFrameWork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CJFrameWork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B0F95311EDE6BC4009F5005 /* CJAppStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJAppStore.h; sourceTree = "<group>"; };
+		9B0F95321EDE6BC4009F5005 /* CJAppStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJAppStore.m; sourceTree = "<group>"; };
+		9B1439851EE00D5900000BD6 /* CJCatchException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJCatchException.h; sourceTree = "<group>"; };
+		9B1439861EE00D5900000BD6 /* CJCatchException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJCatchException.m; sourceTree = "<group>"; };
+		9B1728A61E7FC14700563EEE /* UIImageWebP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageWebP.h; sourceTree = "<group>"; };
+		9B1728A71E7FC14700563EEE /* UIImageWebP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageWebP.m; sourceTree = "<group>"; };
+		9B1728AA1E7FC1AE00563EEE /* libwebp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libwebp.a; sourceTree = "<group>"; };
+		9B1728AB1E7FC1AE00563EEE /* libwebpdemux.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libwebpdemux.a; sourceTree = "<group>"; };
+		9B1728AC1E7FC1AE00563EEE /* libwebpmux.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libwebpmux.a; sourceTree = "<group>"; };
+		9B1728B21E7FCBBC00563EEE /* UIImage+CJWebP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CJWebP.h"; sourceTree = "<group>"; };
+		9B1728B31E7FCBBC00563EEE /* UIImage+CJWebP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CJWebP.m"; sourceTree = "<group>"; };
+		9B6DB77D1E7A64EF0033BA32 /* CJFrameWorkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJFrameWorkManager.h; sourceTree = "<group>"; };
+		9B6DB77E1E7A64EF0033BA32 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B6DB77F1E7A64EF0033BA32 /* NSData+CJBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CJBase64.h"; sourceTree = "<group>"; };
+		9B6DB7801E7A64EF0033BA32 /* NSData+CJBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CJBase64.m"; sourceTree = "<group>"; };
+		9B6DB7811E7A64EF0033BA32 /* CJParseOnlineData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJParseOnlineData.h; sourceTree = "<group>"; };
+		9B6DB7821E7A64EF0033BA32 /* CJParseOnlineData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJParseOnlineData.m; sourceTree = "<group>"; };
+		9B6DB7831E7A64EF0033BA32 /* CJWebData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJWebData.h; sourceTree = "<group>"; };
+		9B6DB7841E7A64EF0033BA32 /* CJWebData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJWebData.m; sourceTree = "<group>"; };
+		9B6DB7851E7A64EF0033BA32 /* CJWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJWebService.h; sourceTree = "<group>"; };
+		9B6DB7861E7A64EF0033BA32 /* CJWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJWebService.m; sourceTree = "<group>"; };
+		9B6DB7931E7A66A80033BA32 /* ExtAudioConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtAudioConverter.h; sourceTree = "<group>"; };
+		9B6DB7941E7A66A80033BA32 /* ExtAudioConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtAudioConverter.m; sourceTree = "<group>"; };
+		9B6DB7951E7A66A80033BA32 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
+		9B6DB7961E7A66A80033BA32 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
+		9B6DB7971E7A66A80033BA32 /* CJAudioTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJAudioTool.h; sourceTree = "<group>"; };
+		9B6DB7981E7A66A80033BA32 /* CJAudioTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJAudioTool.m; sourceTree = "<group>"; };
+		9B6DB79F1E7A66D70033BA32 /* CJHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJHelper.h; sourceTree = "<group>"; };
+		9B8549471EA8A70400A19895 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
+		9B8549481EA8A70400A19895 /* amrFileCodec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = amrFileCodec.mm; sourceTree = "<group>"; };
+		9B8549491EA8A70400A19895 /* wav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wav.h; sourceTree = "<group>"; };
+		9B85494A1EA8A70400A19895 /* wav.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = wav.mm; sourceTree = "<group>"; };
+		9B85494B1EA8A70400A19895 /* EMVoiceConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMVoiceConverter.h; sourceTree = "<group>"; };
+		9B85494C1EA8A70400A19895 /* EMVoiceConverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EMVoiceConverter.mm; sourceTree = "<group>"; };
+		9B85494E1EA8A70400A19895 /* interf_dec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_dec.h; sourceTree = "<group>"; };
+		9B85494F1EA8A70400A19895 /* interf_enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
+		9B8549501EA8A70400A19895 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		9B8549521EA8A70400A19895 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
+		9B8549531EA8A70400A19895 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
+		9B8549541EA8A70400A19895 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
+		9BCC56801F04EEC3001EE34A /* CJHTTPConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJHTTPConfig.h; sourceTree = "<group>"; };
+		9BCC56811F04EEC3001EE34A /* CJHTTPConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJHTTPConfig.m; sourceTree = "<group>"; };
+		9BCC56841F04F184001EE34A /* CJHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJHTTPRequest.h; sourceTree = "<group>"; };
+		9BCC56851F04F184001EE34A /* CJHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJHTTPRequest.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9B0F4FF91DAF3F56001EE86B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B1728AE1E7FC1AE00563EEE /* libwebpdemux.a in Frameworks */,
+				9B6DB79C1E7A66A80033BA32 /* libmp3lame.a in Frameworks */,
+				9B1728AF1E7FC1AE00563EEE /* libwebpmux.a in Frameworks */,
+				9B85495D1EA8A70400A19895 /* libopencore-amrnb.a in Frameworks */,
+				9B8549601EA8A70400A19895 /* libopencore-amrwb.a in Frameworks */,
+				9B1728AD1E7FC1AE00563EEE /* libwebp.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9B0F4FF31DAF3F56001EE86B = {
+			isa = PBXGroup;
+			children = (
+				9B6DB77C1E7A64EF0033BA32 /* CJFrameWork */,
+				9B0F4FFE1DAF3F56001EE86B /* Products */,
+				9BE953B91EADA3FB000BAB96 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		9B0F4FFE1DAF3F56001EE86B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9B0F4FFD1DAF3F56001EE86B /* CJFrameWork.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9B0F95301EDE69A0009F5005 /* UpdateVersion */ = {
+			isa = PBXGroup;
+			children = (
+				9B0F95311EDE6BC4009F5005 /* CJAppStore.h */,
+				9B0F95321EDE6BC4009F5005 /* CJAppStore.m */,
+			);
+			name = UpdateVersion;
+			sourceTree = "<group>";
+		};
+		9B1439841EE00D3400000BD6 /* CatchException */ = {
+			isa = PBXGroup;
+			children = (
+				9B1439851EE00D5900000BD6 /* CJCatchException.h */,
+				9B1439861EE00D5900000BD6 /* CJCatchException.m */,
+			);
+			name = CatchException;
+			sourceTree = "<group>";
+		};
+		9B1728A51E7FC0B900563EEE /* WebP */ = {
+			isa = PBXGroup;
+			children = (
+				9B1728AA1E7FC1AE00563EEE /* libwebp.a */,
+				9B1728AB1E7FC1AE00563EEE /* libwebpdemux.a */,
+				9B1728AC1E7FC1AE00563EEE /* libwebpmux.a */,
+				9B1728D01E7FD06200563EEE /* webp */,
+				9B1728A61E7FC14700563EEE /* UIImageWebP.h */,
+				9B1728A71E7FC14700563EEE /* UIImageWebP.m */,
+				9B1728B21E7FCBBC00563EEE /* UIImage+CJWebP.h */,
+				9B1728B31E7FCBBC00563EEE /* UIImage+CJWebP.m */,
+			);
+			name = WebP;
+			sourceTree = "<group>";
+		};
+		9B1728D01E7FD06200563EEE /* webp */ = {
+			isa = PBXGroup;
+			children = (
+				8784FD891FFE23E900742570 /* WebP.framework */,
+				8784FD8A1FFE23E900742570 /* WebPDecoder.framework */,
+			);
+			path = webp;
+			sourceTree = "<group>";
+		};
+		9B6DB77C1E7A64EF0033BA32 /* CJFrameWork */ = {
+			isa = PBXGroup;
+			children = (
+				9B6DB77D1E7A64EF0033BA32 /* CJFrameWorkManager.h */,
+				9B6DB79F1E7A66D70033BA32 /* CJHelper.h */,
+				9B6DB7921E7A66830033BA32 /* AudioTool */,
+				9B1728A51E7FC0B900563EEE /* WebP */,
+				9B6DB7911E7A66660033BA32 /* WebServiceV2 */,
+				9BCC567F1F04EE8D001EE34A /* HTTP */,
+				9B0F95301EDE69A0009F5005 /* UpdateVersion */,
+				9B1439841EE00D3400000BD6 /* CatchException */,
+				9B6DB77E1E7A64EF0033BA32 /* Info.plist */,
+			);
+			path = CJFrameWork;
+			sourceTree = "<group>";
+		};
+		9B6DB7911E7A66660033BA32 /* WebServiceV2 */ = {
+			isa = PBXGroup;
+			children = (
+				9B6DB77F1E7A64EF0033BA32 /* NSData+CJBase64.h */,
+				9B6DB7801E7A64EF0033BA32 /* NSData+CJBase64.m */,
+				9B6DB7811E7A64EF0033BA32 /* CJParseOnlineData.h */,
+				9B6DB7821E7A64EF0033BA32 /* CJParseOnlineData.m */,
+				9B6DB7831E7A64EF0033BA32 /* CJWebData.h */,
+				9B6DB7841E7A64EF0033BA32 /* CJWebData.m */,
+				9B6DB7851E7A64EF0033BA32 /* CJWebService.h */,
+				9B6DB7861E7A64EF0033BA32 /* CJWebService.m */,
+			);
+			name = WebServiceV2;
+			sourceTree = "<group>";
+		};
+		9B6DB7921E7A66830033BA32 /* AudioTool */ = {
+			isa = PBXGroup;
+			children = (
+				9B8548F41EA8A5DE00A19895 /* AMR_WAV */,
+				9B6DB7931E7A66A80033BA32 /* ExtAudioConverter.h */,
+				9B6DB7941E7A66A80033BA32 /* ExtAudioConverter.m */,
+				9B6DB7951E7A66A80033BA32 /* lame.h */,
+				9B6DB7961E7A66A80033BA32 /* libmp3lame.a */,
+				9B6DB7971E7A66A80033BA32 /* CJAudioTool.h */,
+				9B6DB7981E7A66A80033BA32 /* CJAudioTool.m */,
+			);
+			name = AudioTool;
+			sourceTree = "<group>";
+		};
+		9B8548F41EA8A5DE00A19895 /* AMR_WAV */ = {
+			isa = PBXGroup;
+			children = (
+				9B8549461EA8A70400A19895 /* amrwapper */,
+				9B85494D1EA8A70400A19895 /* opencore-amrnb */,
+				9B8549511EA8A70400A19895 /* opencore-amrwb */,
+				9B85494B1EA8A70400A19895 /* EMVoiceConverter.h */,
+				9B85494C1EA8A70400A19895 /* EMVoiceConverter.mm */,
+			);
+			name = AMR_WAV;
+			sourceTree = "<group>";
+		};
+		9B8549461EA8A70400A19895 /* amrwapper */ = {
+			isa = PBXGroup;
+			children = (
+				9B8549471EA8A70400A19895 /* amrFileCodec.h */,
+				9B8549481EA8A70400A19895 /* amrFileCodec.mm */,
+				9B8549491EA8A70400A19895 /* wav.h */,
+				9B85494A1EA8A70400A19895 /* wav.mm */,
+			);
+			path = amrwapper;
+			sourceTree = "<group>";
+		};
+		9B85494D1EA8A70400A19895 /* opencore-amrnb */ = {
+			isa = PBXGroup;
+			children = (
+				9B85494E1EA8A70400A19895 /* interf_dec.h */,
+				9B85494F1EA8A70400A19895 /* interf_enc.h */,
+				9B8549501EA8A70400A19895 /* libopencore-amrnb.a */,
+			);
+			path = "opencore-amrnb";
+			sourceTree = "<group>";
+		};
+		9B8549511EA8A70400A19895 /* opencore-amrwb */ = {
+			isa = PBXGroup;
+			children = (
+				9B8549521EA8A70400A19895 /* dec_if.h */,
+				9B8549531EA8A70400A19895 /* if_rom.h */,
+				9B8549541EA8A70400A19895 /* libopencore-amrwb.a */,
+			);
+			path = "opencore-amrwb";
+			sourceTree = "<group>";
+		};
+		9BCC567F1F04EE8D001EE34A /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				9BCC56801F04EEC3001EE34A /* CJHTTPConfig.h */,
+				9BCC56811F04EEC3001EE34A /* CJHTTPConfig.m */,
+				9BCC56841F04F184001EE34A /* CJHTTPRequest.h */,
+				9BCC56851F04F184001EE34A /* CJHTTPRequest.m */,
+			);
+			name = HTTP;
+			sourceTree = "<group>";
+		};
+		9BE953B91EADA3FB000BAB96 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		9B0F4FFA1DAF3F56001EE86B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B8549571EA8A70400A19895 /* wav.h in Headers */,
+				9B6DB79B1E7A66A80033BA32 /* lame.h in Headers */,
+				9B85495F1EA8A70400A19895 /* if_rom.h in Headers */,
+				9B6DB78D1E7A64EF0033BA32 /* CJWebData.h in Headers */,
+				9B1728B41E7FCBBC00563EEE /* UIImage+CJWebP.h in Headers */,
+				9B1728A81E7FC14700563EEE /* UIImageWebP.h in Headers */,
+				9B85495E1EA8A70400A19895 /* dec_if.h in Headers */,
+				9B0F95331EDE6BC4009F5005 /* CJAppStore.h in Headers */,
+				9BCC56861F04F184001EE34A /* CJHTTPRequest.h in Headers */,
+				9BCC56821F04EEC3001EE34A /* CJHTTPConfig.h in Headers */,
+				9B1439871EE00D5900000BD6 /* CJCatchException.h in Headers */,
+				9B6DB78F1E7A64EF0033BA32 /* CJWebService.h in Headers */,
+				9B6DB7991E7A66A80033BA32 /* ExtAudioConverter.h in Headers */,
+				9B6DB7A01E7A66D70033BA32 /* CJHelper.h in Headers */,
+				9B6DB79D1E7A66A80033BA32 /* CJAudioTool.h in Headers */,
+				9B6DB7891E7A64EF0033BA32 /* NSData+CJBase64.h in Headers */,
+				9B8549591EA8A70400A19895 /* EMVoiceConverter.h in Headers */,
+				9B6DB7871E7A64EF0033BA32 /* CJFrameWorkManager.h in Headers */,
+				9B85495B1EA8A70400A19895 /* interf_dec.h in Headers */,
+				9B8549551EA8A70400A19895 /* amrFileCodec.h in Headers */,
+				9B6DB78B1E7A64EF0033BA32 /* CJParseOnlineData.h in Headers */,
+				9B85495C1EA8A70400A19895 /* interf_enc.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		9B0F4FFC1DAF3F56001EE86B /* CJFrameWork */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B0F50051DAF3F57001EE86B /* Build configuration list for PBXNativeTarget "CJFrameWork" */;
+			buildPhases = (
+				9B0F4FF81DAF3F56001EE86B /* Sources */,
+				9B0F4FF91DAF3F56001EE86B /* Frameworks */,
+				9B0F4FFA1DAF3F56001EE86B /* Headers */,
+				9B0F4FFB1DAF3F56001EE86B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CJFrameWork;
+			productName = CJWebService2;
+			productReference = 9B0F4FFD1DAF3F56001EE86B /* CJFrameWork.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9B0F4FF41DAF3F56001EE86B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = basic;
+				TargetAttributes = {
+					9B0F4FFC1DAF3F56001EE86B = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					9B0F50181DAF4041001EE86B = {
+						CreatedOnToolsVersion = 7.3;
+					};
+				};
+			};
+			buildConfigurationList = 9B0F4FF71DAF3F56001EE86B /* Build configuration list for PBXProject "CJFrameWork" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9B0F4FF31DAF3F56001EE86B;
+			productRefGroup = 9B0F4FFE1DAF3F56001EE86B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9B0F4FFC1DAF3F56001EE86B /* CJFrameWork */,
+				9B0F50181DAF4041001EE86B /* MyAggregate */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9B0F4FFB1DAF3F56001EE86B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B6DB7881E7A64EF0033BA32 /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9B0F501C1DAF4046001EE86B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Sets the target folders and the final framework product.\n# 如果工程名称和Framework的Target名称不一样的话，要自定义FMKNAME\n# 例如: FMK_NAME = \"MyFramework\"\nFMK_NAME=${PROJECT_NAME}\n# Install dir will be the final output to the framework.\n# The following line create it in the root folder of the current project.\nINSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework\n# Working dir will be deleted after the framework creation.\nWRK_DIR=build\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WRK_DIR}/Release-iphonesimulator/${FMK_NAME}.framework\n# -configuration ${CONFIGURATION}\n# Clean and Building both architectures.\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos clean build\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphonesimulator clean build\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\nmkdir -p \"${INSTALL_DIR}\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\nrm -r \"${WRK_DIR}\"\nopen \"${INSTALL_DIR}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9B0F4FF81DAF3F56001EE86B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B8549581EA8A70400A19895 /* wav.mm in Sources */,
+				9B6DB79E1E7A66A80033BA32 /* CJAudioTool.m in Sources */,
+				9B1439881EE00D5900000BD6 /* CJCatchException.m in Sources */,
+				9B85495A1EA8A70400A19895 /* EMVoiceConverter.mm in Sources */,
+				9B6DB7901E7A64EF0033BA32 /* CJWebService.m in Sources */,
+				9B1728B51E7FCBBC00563EEE /* UIImage+CJWebP.m in Sources */,
+				9B6DB78C1E7A64EF0033BA32 /* CJParseOnlineData.m in Sources */,
+				9B0F95341EDE6BC4009F5005 /* CJAppStore.m in Sources */,
+				9B6DB79A1E7A66A80033BA32 /* ExtAudioConverter.m in Sources */,
+				9B1728A91E7FC14700563EEE /* UIImageWebP.m in Sources */,
+				9B8549561EA8A70400A19895 /* amrFileCodec.mm in Sources */,
+				9B6DB78E1E7A64EF0033BA32 /* CJWebData.m in Sources */,
+				9BCC56871F04F184001EE34A /* CJHTTPRequest.m in Sources */,
+				9BCC56831F04EEC3001EE34A /* CJHTTPConfig.m in Sources */,
+				9B6DB78A1E7A64EF0033BA32 /* NSData+CJBase64.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		9B0F50031DAF3F57001EE86B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		9B0F50041DAF3F57001EE86B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		9B0F50061DAF3F57001EE86B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CJFrameWork/webp",
+					"$(PROJECT_DIR)/Products",
+				);
+				INFOPLIST_FILE = CJFrameWork/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CJFrameWork",
+					"$(PROJECT_DIR)/CJFrameWork/opencore-amrnb",
+					"$(PROJECT_DIR)/CJFrameWork/opencore-amrwb",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fxyy.CJFrameWork;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		9B0F50071DAF3F57001EE86B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CJFrameWork/webp",
+					"$(PROJECT_DIR)/Products",
+				);
+				INFOPLIST_FILE = CJFrameWork/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CJFrameWork",
+					"$(PROJECT_DIR)/CJFrameWork/opencore-amrnb",
+					"$(PROJECT_DIR)/CJFrameWork/opencore-amrwb",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fxyy.CJFrameWork;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		9B0F501A1DAF4041001EE86B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = NO;
+				OTHER_CFLAGS = "-fembed-bitcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_STYLE = all;
+			};
+			name = Debug;
+		};
+		9B0F501B1DAF4041001EE86B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = NO;
+				OTHER_CFLAGS = "-fembed-bitcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_STYLE = all;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9B0F4FF71DAF3F56001EE86B /* Build configuration list for PBXProject "CJFrameWork" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B0F50031DAF3F57001EE86B /* Debug */,
+				9B0F50041DAF3F57001EE86B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B0F50051DAF3F57001EE86B /* Build configuration list for PBXNativeTarget "CJFrameWork" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B0F50061DAF3F57001EE86B /* Debug */,
+				9B0F50071DAF3F57001EE86B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B0F50191DAF4041001EE86B /* Build configuration list for PBXAggregateTarget "MyAggregate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B0F501A1DAF4041001EE86B /* Debug */,
+				9B0F501B1DAF4041001EE86B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9B0F4FF41DAF3F56001EE86B /* Project object */;
+}
