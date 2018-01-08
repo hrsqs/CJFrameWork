@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <WebP/decode.h>
-#import <WebP/encode.h>
+//#import <WebP/decode.h>
+#import "WebP/encode.h"
+#import "WebP/decode.h"
 //#import "webp/WebP.framework/Headers/decode.h"
 //#import "webp/WebP.framework/Headers/encode.h"
 

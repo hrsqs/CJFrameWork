@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		8784986A1FFF7C1600762AC1 /* WebP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8784FD891FFE23E900742570 /* WebP.framework */; };
+		8784986B1FFF7C1600762AC1 /* WebPDecoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8784FD8A1FFE23E900742570 /* WebPDecoder.framework */; };
 		9B0F95331EDE6BC4009F5005 /* CJAppStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B0F95311EDE6BC4009F5005 /* CJAppStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B0F95341EDE6BC4009F5005 /* CJAppStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0F95321EDE6BC4009F5005 /* CJAppStore.m */; };
 		9B1439871EE00D5900000BD6 /* CJCatchException.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B1439851EE00D5900000BD6 /* CJCatchException.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -122,6 +124,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8784986A1FFF7C1600762AC1 /* WebP.framework in Frameworks */,
+				8784986B1FFF7C1600762AC1 /* WebPDecoder.framework in Frameworks */,
 				9B1728AE1E7FC1AE00563EEE /* libwebpdemux.a in Frameworks */,
 				9B6DB79C1E7A66A80033BA32 /* libmp3lame.a in Frameworks */,
 				9B1728AF1E7FC1AE00563EEE /* libwebpmux.a in Frameworks */,
