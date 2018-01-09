@@ -11,8 +11,8 @@
 @implementation CJHTTPConfig
 
 static NSString* _defaultURL;
-static NSString* _partner;
-static NSString* _partnerKey;
+//static NSString* _partner;
+//static NSString* _partnerKey;
 
 +(void)setDefaultURL:(NSString*)url
 {
@@ -24,24 +24,43 @@ static NSString* _partnerKey;
     return _defaultURL;
 }
 
-+(void)setHTTPPartner:(NSString*)partner
++(NSString*)getQueueKeyString:(CJHTTPQueueKey)e
 {
-    _partner = partner;
+    switch (e) {
+        case CJHTTPQueueKey_Method:
+            return @"Method";
+        case CJHTTPQueueKey_Params:
+            return @"Params";
+        case CJHTTPQueueKey_HTTPMethod:
+            return @"HTTPMethod";
+//        case CJHTTPQueueKey_TimeOut:
+//            return @"TimeOut";
+        case CJHTTPQueueKey_Tag:
+            return @"Tag";
+        case CJHTTPQueueKey_URL:
+        default:
+            return @"URL";
+    }
 }
 
-+(NSString*)getHTTPPartner
-{
-    return _partner;
-}
-
-+(void)setHTTPPartnerKey:(NSString*)partnerKey
-{
-    _partnerKey = partnerKey;
-}
-
-+(NSString*)getHTTPPartnerKey
-{
-    return _partnerKey;
-}
+//+(void)setHTTPPartner:(NSString*)partner
+//{
+//    _partner = partner;
+//}
+//
+//+(NSString*)getHTTPPartner
+//{
+//    return _partner;
+//}
+//
+//+(void)setHTTPPartnerKey:(NSString*)partnerKey
+//{
+//    _partnerKey = partnerKey;
+//}
+//
+//+(NSString*)getHTTPPartnerKey
+//{
+//    return _partnerKey;
+//}
 
 @end

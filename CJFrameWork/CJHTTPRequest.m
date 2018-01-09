@@ -12,31 +12,52 @@
 
 #import <CommonCrypto/CommonDigest.h>
 
+#define CallMainThread(x) dispatch_async(dispatch_get_main_queue(), ^(){x})
+
+@interface CJHTTPRequest () <NSURLSessionDownloadDelegate>
+{
+    
+}
+@end
+
 @implementation CJHTTPRequest
 
+// 下载才会用到的属性
+static NSMutableArray* _downloadArr;
+
 #pragma mark - 公有静态函数
-+(void)GetMethod:(NSString*)method Params:(NSDictionary*)params Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
++(void)GetMethod:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
+    [CJHTTPRequest GetURL:[CJHTTPConfig getDefaultURL] Method:method Params:params Tag:tag Success:successblock Fail:failblock];
+}
+
++(void)PostMethod:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
+    [CJHTTPRequest PostURL:[CJHTTPConfig getDefaultURL] Method:method Params:params Tag:tag Success:successblock Fail:failblock];
+}
+
++(void)GetURL:(NSString*)url Method:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
 {
     NSURLSession *session = [NSURLSession sharedSession];
-
-    NSString* urlStr = [NSString stringWithFormat:@"%@/%@?%@", [CJHTTPConfig getDefaultURL], method, [self params2String:params]];
+    
+    NSString* urlStr = [NSString stringWithFormat:@"%@/%@?%@", url, method, [self params2String:params]];
     //转码
     urlStr= [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 //    NSLog(@"get url = %@", urlStr);
-    NSURL *url = [NSURL URLWithString:urlStr];
+    NSURL *httpUrl = [NSURL URLWithString:urlStr];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:httpUrl];
     request.timeoutInterval = DATA_TIMEOUT_VALUE;
     request.HTTPMethod = @"GET";
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
         if (error) {
-            failblock(error, error.description);
+            CallMainThread(failblock(error, error.description););
         }else {
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
 //            NSLog(@"get dict:%@",dict);
-            successblock([CJHTTPRequest toJSONString:dict], -1);
+            CallMainThread(successblock([CJHTTPRequest toJSONString:dict], tag););
         }
         
     }];
@@ -44,16 +65,16 @@
     [dataTask resume];
 }
 
-+(void)PostMethod:(NSString*)method Params:(NSDictionary*)params Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
++(void)PostURL:(NSString*)url Method:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
 {
     NSURLSession *session = [NSURLSession sharedSession];
     
-    NSString* urlStr = [NSString stringWithFormat:@"%@/%@", [CJHTTPConfig getDefaultURL], method];
+    NSString* urlStr = [NSString stringWithFormat:@"%@/%@", url, method];
     //转码
     urlStr= [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURL *url = [NSURL URLWithString:urlStr];
+    NSURL *httpUrl = [NSURL URLWithString:urlStr];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:httpUrl];
     request.timeoutInterval = DATA_TIMEOUT_VALUE;
     request.HTTPMethod = @"POST";
     
@@ -66,16 +87,148 @@
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
         if (error) {
-            failblock(error, error.description);
+            CallMainThread(failblock(error, error.description););
         }else {
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
 //            NSLog(@"post dict:%@",dict);
-            successblock([CJHTTPRequest toJSONString:dict], -1);
+            CallMainThread(successblock([CJHTTPRequest toJSONString:dict], tag););
         }
         
     }];
     
     [dataTask resume];
+}
+
++ (void)downloadDataWithURL:(NSString*)url SaveFilePath:(NSString*)filepath Tag:(int)tag Progress:(ProgressBlock)progress Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
+    
+    // 获得NSURLSession对象
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[[NSOperationQueue alloc] init]];
+    
+    // 获得下载任务
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURLSessionDownloadTask *task = [session downloadTaskWithURL:[NSURL URLWithString:url]];
+    
+    // 启动任务
+    [task resume];
+    
+    // 向字典添加对应的tag
+    if (_downloadArr == NULL) {
+        _downloadArr = [[NSMutableArray alloc]init];
+    }
+    NSDictionary* dic = @{
+                          @"successblock": successblock,
+                          @"progress": progress,
+                          @"failblock": failblock,
+                          @"tag": @(tag),
+                          @"filepath": filepath,
+                          @"task": task
+                          };
+    [_downloadArr addObject:dic];
+}
+
++ (void)queueWithParamsArray:(NSArray*)paramsArray Success:(SuccessBlock)successblock Fail:(SingleFailureBlock)failblock TotalSuccess:(TotalSuccessBlock)totalsuccessblock
+{
+    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+    //创建一个信号量（值为0）
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    dispatch_async(queue, ^{
+        for (int index = 0; index < paramsArray.count; index++) {
+
+            NSDictionary* paramsDic = (NSDictionary*)[paramsArray objectAtIndex:index];
+            __block NSString* url;
+            if ([paramsDic valueForKey:[CJHTTPConfig getQueueKeyString:CJHTTPQueueKey_URL]]) {
+                url = (NSString*)[paramsDic valueForKey:[CJHTTPConfig getQueueKeyString:CJHTTPQueueKey_URL]];
+            }else {
+                url = [CJHTTPConfig getDefaultURL];
+            }
+            __block NSString* method = (NSString*)[paramsDic valueForKey:[CJHTTPConfig getQueueKeyString:CJHTTPQueueKey_Method]];
+            __block NSDictionary* params = (NSDictionary*)[paramsDic valueForKey:[CJHTTPConfig getQueueKeyString:CJHTTPQueueKey_Params]];
+            __block NSString* httpMethod = (NSString*)[paramsDic valueForKey:[CJHTTPConfig getQueueKeyString:CJHTTPQueueKey_HTTPMethod]];
+//            __block int timeout = [(NSString*)[paramsDic objectForKey:[CJHTTPConfig getQueueKeyString:CJHTTPQueueKey_TimeOut]] intValue];
+            __block int tag = [(NSString*)[paramsDic objectForKey:[CJHTTPConfig getQueueKeyString:CJHTTPQueueKey_Tag]] intValue];
+            
+            if ([[httpMethod uppercaseString] isEqualToString:@"GET"]) {
+                [CJHTTPRequest GetURL:url Method:method Params:params Tag:tag Success:^(NSString *data, int tag) {
+                    CallMainThread(successblock(data, tag););
+                    //信号量加1
+                    dispatch_semaphore_signal(semaphore);
+                } Fail:^(NSError *error, NSString *describe) {
+                    CallMainThread(failblock(error, describe, tag););
+                    return;
+                }];
+            }else if ([[httpMethod uppercaseString] isEqualToString:@"POST"]) {
+                [CJHTTPRequest PostURL:url Method:method Params:params Tag:tag Success:^(NSString *data, int tag) {
+                    CallMainThread(successblock(data, tag););
+                    //信号量加1
+                    dispatch_semaphore_signal(semaphore);
+                } Fail:^(NSError *error, NSString *describe) {
+                    CallMainThread(failblock(error, describe, tag););
+                    return;
+                }];
+            }
+            
+            //信号量减1，如果>0，则向下执行，否则等待
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        }
+        CallMainThread(totalsuccessblock(-1););
+    });
+}
+
++ (void)groupWithParamsArray:(NSArray*)paramsArray Success:(SuccessBlock)successblock Fail:(SingleFailureBlock)failblock TotalSuccess:(TotalSuccessBlock)totalsuccessblock
+{
+    dispatch_queue_t conCurrentGlobalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_group_t groupQueue = dispatch_group_create();
+    
+    __block int successCount = 0;
+    __block int failCount = 0;
+    
+    for (int index = 0; index < paramsArray.count; index++) {
+        NSDictionary* paramsDic = (NSDictionary*)[paramsArray objectAtIndex:index];
+        __block NSString* url;
+        if ([paramsDic valueForKey:[CJHTTPConfig getQueueKeyString:CJHTTPQueueKey_URL]]) {
+            url = (NSString*)[paramsDic valueForKey:[CJHTTPConfig getQueueKeyString:CJHTTPQueueKey_URL]];
+        }else {
+            url = [CJHTTPConfig getDefaultURL];
+        }
+        __block NSString* method = (NSString*)[paramsDic valueForKey:[CJHTTPConfig getQueueKeyString:CJHTTPQueueKey_Method]];
+        __block NSDictionary* params = (NSDictionary*)[paramsDic valueForKey:[CJHTTPConfig getQueueKeyString:CJHTTPQueueKey_Params]];
+        __block NSString* httpMethod = (NSString*)[paramsDic valueForKey:[CJHTTPConfig getQueueKeyString:CJHTTPQueueKey_HTTPMethod]];
+//        __block int timeout = [(NSString*)[paramsDic objectForKey:[CJHTTPConfig getQueueKeyString:CJHTTPQueueKey_TimeOut]] intValue];
+        __block int tag = [(NSString*)[paramsDic objectForKey:[CJHTTPConfig getQueueKeyString:CJHTTPQueueKey_Tag]] intValue];
+        
+        dispatch_group_async(groupQueue, conCurrentGlobalQueue, ^{
+            if ([[httpMethod uppercaseString] isEqualToString:@"GET"]) {
+                [CJHTTPRequest GetURL:url Method:method Params:params Tag:tag Success:^(NSString *data, int tag) {
+                    successCount++;
+                    CallMainThread(successblock(data, tag););
+                } Fail:^(NSError *error, NSString *describe) {
+                    failCount++;
+                    CallMainThread(failblock(error, describe, tag););
+                }];
+            }else if ([[httpMethod uppercaseString] isEqualToString:@"POST"]) {
+                [CJHTTPRequest PostURL:url Method:method Params:params Tag:tag Success:^(NSString *data, int tag) {
+                    successCount++;
+                    CallMainThread(successblock(data, tag););
+                } Fail:^(NSError *error, NSString *describe) {
+                    failCount++;
+                    CallMainThread(failblock(error, describe, tag););
+                }];
+            }
+        });
+    }
+    dispatch_group_async(groupQueue, conCurrentGlobalQueue, ^{
+        while (1 && paramsArray.count > 0) {
+            if (successCount + failCount == paramsArray.count) {
+                if (successCount == paramsArray.count) {
+                    CallMainThread(totalsuccessblock(-1););
+                }
+                break;
+            }
+            [NSThread sleepForTimeInterval:0.1];
+        }
+    });
 }
 
 #pragma mark - 私有静态函数
@@ -105,41 +258,87 @@
     return result;
 }
 
-/*+(NSString*)params2URIString:(NSDictionary*)params {
-    NSMutableString* result = [[NSMutableString alloc]initWithString:@""];
-    NSMutableDictionary* paramsNew = [[NSMutableDictionary alloc]initWithDictionary:params];
-    [paramsNew setObject:[CJHTTPConfig getHTTPPartner] forKey:@"partner"];
-    
-    NSMutableArray* keyArr = [[NSMutableArray alloc]initWithArray:[paramsNew allKeys]];
-    NSArray *sortedArray = [keyArr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2){
-        return [obj1 compare:obj2];
-    }];
-
-    for (NSString* key in sortedArray) {
-        NSString* value = paramsNew[key];
-        [result appendString:[NSString stringWithFormat:@"%@=%@&", key, value]];
+#pragma mark - NSURLSessionDownloadDelegate代理
++ (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
+{
+    // 先从downloadArr中查找指定任务的dic
+    NSDictionary* dic;
+    for (dic in _downloadArr) {
+        if (dic[@"task"] == downloadTask) {
+            break;
+        }
+        dic = nil;
     }
-    result = [[NSMutableString alloc]initWithString:[result substringToIndex:result.length-1]];
-    NSString* md5PreEncodeStr = [NSString stringWithFormat:@"%@%@", result, [CJHTTPConfig getHTTPPartnerKey]];
+    if (!dic) return;
     
-    NSString* md5String = [self md5:md5PreEncodeStr];
-    
-    [result appendString:[NSString stringWithFormat:@"&sign=%@", md5String]];
-//    NSLog(@"result = %@", result);
-    return result;
+    ProgressBlock progress = (ProgressBlock)dic[@"progress"];
+    if (progress) {
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            progress(totalBytesWritten, totalBytesExpectedToWrite);
+        });
+    }
 }
 
-+(NSString *)md5:(NSString *)input {
-    const char *cStr = [input UTF8String];
-    unsigned char digest[CC_MD5_DIGEST_LENGTH];
-    CC_MD5( cStr, strlen(cStr), digest ); // This is the md5 call
++ (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location
+{
+    // 先从downloadArr中查找指定任务的dic
+    NSDictionary* dic;
+    for (dic in _downloadArr) {
+        if (dic[@"task"] == downloadTask) {
+            [_downloadArr removeObject:dic];
+            break;
+        }
+        dic = nil;
+    }
+    if (!dic) return;
     
-    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    SuccessBlock successblock = (SuccessBlock)dic[@"successblock"];
+    FailureBlock failblock = (FailureBlock)dic[@"failblock"];
+    NSString* filePath = (NSString*)dic[@"filepath"];
+    int tag = [(NSString*)dic[@"tag"] intValue];
     
-    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
-        [output appendFormat:@"%02x", digest[i]];
+    if (location == NULL) {
+        if (failblock) {
+            CallMainThread(failblock(NEWHTTPERROR(CJWebServiceError_DownFileIsNULL), @"下载的文件为空"););
+        }
+    }else if (filePath == NULL) {
+        if (failblock) {
+            CallMainThread(failblock(NEWHTTPERROR(CJWebServiceError_SavePathIsNULL), @"下载后所需要保存的文件路径为空"););
+        }
+    }else {
+        // 先删除预保存的路径
+        if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+            [[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:filePath] error:nil];
+        }
+        // 复制文件
+        NSError* error;
+        [[NSFileManager defaultManager] moveItemAtURL:location toURL:[NSURL fileURLWithPath:filePath] error:&error];
+        if (error) {
+            CallMainThread(failblock(NEWHTTPERROR(CJWebServiceError_SaveDownloadData), @"保存下载文件失败"););
+        }else {
+            // 成功block回调
+            if (successblock) {
+                CallMainThread(successblock(nil, tag););
+            }
+        }
+    }
+}
+
++(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
+{
+    // 先从downloadArr中查找指定任务的dic
+    NSDictionary* dic;
+    for (dic in _downloadArr) {
+        if (dic[@"task"] == task) {
+            [_downloadArr removeObject:dic];
+            break;
+        }
+        dic = nil;
+    }
+    if (!dic) return;
     
-    return  output;
-}*/
+    FailureBlock failblock = (FailureBlock)dic[@"failblock"];
+    CallMainThread(failblock(NEWHTTPERROR(CJWebServiceError_ConnectTimeout), @"下载连接超时"););
+}
 
 @end

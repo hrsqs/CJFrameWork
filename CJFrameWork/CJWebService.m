@@ -228,7 +228,7 @@ static NSString* _filePath;
         });
     }
     dispatch_group_async(groupQueue, conCurrentGlobalQueue, ^{
-        while (1) {
+        while (1 && paramsArray.count > 0) {
             if (successCount + failCount == paramsArray.count) {
                 if (successCount == paramsArray.count) {
                     CallMainThread(totalsuccessblock(tagGroup););
