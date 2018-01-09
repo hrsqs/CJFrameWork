@@ -16,5 +16,6 @@ typedef void (^FailureBlock)(NSError *error, NSString* describe);
 
 
 +(void)GetMethod:(NSString*)method Params:(NSDictionary*)params Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
++(void)PostMethod:(NSString*)method Params:(NSDictionary*)params Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
 
 @end

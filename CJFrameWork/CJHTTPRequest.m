@@ -8,6 +8,7 @@
 
 #import "CJHTTPRequest.h"
 #import "CJHTTPConfig.h"
+#import "CJWebData.h"
 
 #import <CommonCrypto/CommonDigest.h>
 
@@ -18,26 +19,93 @@
 {
     NSURLSession *session = [NSURLSession sharedSession];
 
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@?%@", [CJHTTPConfig getDefaultURL], method, [self params2URIString:params]]];
+    NSString* urlStr = [NSString stringWithFormat:@"%@/%@?%@", [CJHTTPConfig getDefaultURL], method, [self params2String:params]];
+    //转码
+    urlStr= [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    NSLog(@"get url = %@", urlStr);
+    NSURL *url = [NSURL URLWithString:urlStr];
     
-    //3.创建可变的请求对象
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.timeoutInterval = DATA_TIMEOUT_VALUE;
     request.HTTPMethod = @"GET";
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        NSLog(@"data:%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        //8.解析数据
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        NSLog(@"dict:%@",dict);
+        
+        if (error) {
+            failblock(error, error.description);
+        }else {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+//            NSLog(@"get dict:%@",dict);
+            successblock([CJHTTPRequest toJSONString:dict], -1);
+        }
         
     }];
     
-    //7.执行任务
+    [dataTask resume];
+}
+
++(void)PostMethod:(NSString*)method Params:(NSDictionary*)params Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSString* urlStr = [NSString stringWithFormat:@"%@/%@", [CJHTTPConfig getDefaultURL], method];
+    //转码
+    urlStr= [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.timeoutInterval = DATA_TIMEOUT_VALUE;
+    request.HTTPMethod = @"POST";
+    
+    //设置请求体
+    NSString *param = [self params2String:params];
+//    NSLog(@"post param = %@", param);
+    //把拼接后的字符串转换为data，设置请求体
+    request.HTTPBody = [param dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        if (error) {
+            failblock(error, error.description);
+        }else {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+//            NSLog(@"post dict:%@",dict);
+            successblock([CJHTTPRequest toJSONString:dict], -1);
+        }
+        
+    }];
+    
     [dataTask resume];
 }
 
 #pragma mark - 私有静态函数
-+(NSString*)params2URIString:(NSDictionary*)params {
++ (NSString *)toJSONString:(NSDictionary*)dic
+{
+    NSData *paramsJSONData = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
+    return [[NSString alloc] initWithData:paramsJSONData encoding:NSUTF8StringEncoding];
+}
+
++(NSString*)params2String:(NSDictionary*)params {
+    NSMutableString* result = [[NSMutableString alloc]initWithString:@""];
+    NSMutableDictionary* paramsNew = [[NSMutableDictionary alloc]initWithDictionary:params];
+    
+    NSMutableArray* keyArr = [[NSMutableArray alloc]initWithArray:[paramsNew allKeys]];
+    NSArray *sortedArray = [keyArr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2){
+        return [obj1 compare:obj2];
+    }];
+    
+    for (NSString* key in sortedArray) {
+        NSString* value = paramsNew[key];
+        [result appendString:[NSString stringWithFormat:@"%@=%@&", key, value]];
+    }
+    if (result.length > 0) {
+        result = [[NSMutableString alloc]initWithString:[result substringToIndex:result.length-1]];
+    }
+//    NSLog(@"result = %@", result);
+    return result;
+}
+
+/*+(NSString*)params2URIString:(NSDictionary*)params {
     NSMutableString* result = [[NSMutableString alloc]initWithString:@""];
     NSMutableDictionary* paramsNew = [[NSMutableDictionary alloc]initWithDictionary:params];
     [paramsNew setObject:[CJHTTPConfig getHTTPPartner] forKey:@"partner"];
@@ -72,6 +140,6 @@
         [output appendFormat:@"%02x", digest[i]];
     
     return  output;
-}
+}*/
 
 @end
