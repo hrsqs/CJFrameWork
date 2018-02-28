@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		8705C1A220467D4500C00B68 /* CJHTTPFormModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 8705C1A020467D4400C00B68 /* CJHTTPFormModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8705C1A320467D4500C00B68 /* CJHTTPFormModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8705C1A120467D4500C00B68 /* CJHTTPFormModel.m */; };
 		8784986A1FFF7C1600762AC1 /* WebP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8784FD891FFE23E900742570 /* WebP.framework */; };
 		8784986B1FFF7C1600762AC1 /* WebPDecoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8784FD8A1FFE23E900742570 /* WebPDecoder.framework */; };
 		9B0F95331EDE6BC4009F5005 /* CJAppStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B0F95311EDE6BC4009F5005 /* CJAppStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -70,6 +72,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8705C1A020467D4400C00B68 /* CJHTTPFormModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJHTTPFormModel.h; sourceTree = "<group>"; };
+		8705C1A120467D4500C00B68 /* CJHTTPFormModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJHTTPFormModel.m; sourceTree = "<group>"; };
 		8784FD891FFE23E900742570 /* WebP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebP.framework; sourceTree = "<group>"; };
 		8784FD8A1FFE23E900742570 /* WebPDecoder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebPDecoder.framework; sourceTree = "<group>"; };
 		9B0F4FFD1DAF3F56001EE86B /* CJFrameWork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CJFrameWork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -290,6 +294,8 @@
 			children = (
 				9BCC56801F04EEC3001EE34A /* CJHTTPConfig.h */,
 				9BCC56811F04EEC3001EE34A /* CJHTTPConfig.m */,
+				8705C1A020467D4400C00B68 /* CJHTTPFormModel.h */,
+				8705C1A120467D4500C00B68 /* CJHTTPFormModel.m */,
 				9BCC56841F04F184001EE34A /* CJHTTPRequest.h */,
 				9BCC56851F04F184001EE34A /* CJHTTPRequest.m */,
 			);
@@ -314,6 +320,7 @@
 				9B6DB79B1E7A66A80033BA32 /* lame.h in Headers */,
 				9B85495F1EA8A70400A19895 /* if_rom.h in Headers */,
 				9B6DB78D1E7A64EF0033BA32 /* CJWebData.h in Headers */,
+				8705C1A220467D4500C00B68 /* CJHTTPFormModel.h in Headers */,
 				9B1728B41E7FCBBC00563EEE /* UIImage+CJWebP.h in Headers */,
 				9B1728A81E7FC14700563EEE /* UIImageWebP.h in Headers */,
 				9B85495E1EA8A70400A19895 /* dec_if.h in Headers */,
@@ -437,6 +444,7 @@
 				9B6DB78E1E7A64EF0033BA32 /* CJWebData.m in Sources */,
 				9BCC56871F04F184001EE34A /* CJHTTPRequest.m in Sources */,
 				9BCC56831F04EEC3001EE34A /* CJHTTPConfig.m in Sources */,
+				8705C1A320467D4500C00B68 /* CJHTTPFormModel.m in Sources */,
 				9B6DB78A1E7A64EF0033BA32 /* NSData+CJBase64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

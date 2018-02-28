@@ -28,6 +28,7 @@ FOUNDATION_EXPORT const unsigned char CJFrameWorkManagerVersionString[];
 
 // HTTP 服务器请求协议
 #import <CJFrameWork/CJHTTPConfig.h>
+#import <CJFrameWork/CJHTTPFormModel.h>
 #import <CJFrameWork/CJHTTPRequest.h>
 
 // AudioTool 音频处理框架

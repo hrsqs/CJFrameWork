@@ -23,6 +23,10 @@
 @implementation CJHTTPRequest
 
 // 下载才会用到的属性
+//static SuccessBlock _successBlock;
+//static ProgressBlock _progressBlock;
+//static FailureBlock _failBlock;
+//static NSString* _filePath;
 static NSMutableArray* _downloadArr;
 
 #pragma mark - 公有静态函数
@@ -40,7 +44,15 @@ static NSMutableArray* _downloadArr;
 {
     NSURLSession *session = [NSURLSession sharedSession];
     
-    NSString* urlStr = [NSString stringWithFormat:@"%@/%@?%@", url, method, [self params2String:params]];
+    NSMutableString *urlMutStr = [[NSMutableString alloc]init];
+    [urlMutStr appendString:url];
+    if (method) {
+        [urlMutStr appendString:[NSString stringWithFormat:@"/%@", method]];
+    }
+    if (params) {
+        [urlMutStr appendString:[NSString stringWithFormat:@"?%@", [self params2String:params]]];
+    }
+    NSString *urlStr = [urlMutStr copy];
     //转码
     urlStr= [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 //    NSLog(@"get url = %@", urlStr);
@@ -67,9 +79,42 @@ static NSMutableArray* _downloadArr;
 
 +(void)PostURL:(NSString*)url Method:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
 {
+    [CJHTTPRequest PostURL:url Method:method Header:nil Params:params Tag:tag Success:successblock Fail:failblock];
+}
+
++(void)PostJsonMethod:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
+    [CJHTTPRequest PostJsonURL:[CJHTTPConfig getDefaultURL] Method:method Params:params Tag:tag Success:successblock Fail:failblock];
+}
+
++(void)PostJsonURL:(NSString*)url Method:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
+    NSDictionary* header = [[NSMutableDictionary alloc]initWithObjectsAndKeys:
+                            @"application/json", @"accept",
+                            @"application/json", @"Content-Type",
+                            @"application/json", @"Accept-Encoding",
+                            @"utf-8",@"charset",
+                            @"", @"Authorization",
+                            nil];
+    
+    [CJHTTPRequest PostURL:url Method:method Header:header Params:params Tag:tag Success:successblock Fail:failblock];
+}
+
++(void)PostMethod:(NSString*)method Header:(NSDictionary*)header Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
+    [CJHTTPRequest PostURL:[CJHTTPConfig getDefaultURL] Method:method Header:header Params:params Tag:tag Success:successblock Fail:failblock];
+}
+
++(void)PostURL:(NSString*)url Method:(NSString*)method Header:(NSDictionary*)header Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
     NSURLSession *session = [NSURLSession sharedSession];
     
-    NSString* urlStr = [NSString stringWithFormat:@"%@/%@", url, method];
+    NSMutableString *urlMutStr = [[NSMutableString alloc]init];
+    [urlMutStr appendString:url];
+    if (method) {
+        [urlMutStr appendString:[NSString stringWithFormat:@"/%@", method]];
+    }
+    NSString *urlStr = [urlMutStr copy];
     //转码
     urlStr= [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *httpUrl = [NSURL URLWithString:urlStr];
@@ -78,11 +123,79 @@ static NSMutableArray* _downloadArr;
     request.timeoutInterval = DATA_TIMEOUT_VALUE;
     request.HTTPMethod = @"POST";
     
-    //设置请求体
-    NSString *param = [self params2String:params];
-//    NSLog(@"post param = %@", param);
-    //把拼接后的字符串转换为data，设置请求体
-    request.HTTPBody = [param dataUsingEncoding:NSUTF8StringEncoding];
+    //设置请求头
+    if (header) {
+        // Json请求头方式
+        
+        for (NSString* key in [header allKeys]) {
+            [request setValue:[header valueForKey:key] forHTTPHeaderField:key];
+        }
+        
+        //设置请求体
+        NSString *param = [CJHTTPRequest toJSONString:params];
+        //    NSLog(@"post param = %@", param);
+        //把拼接后的字符串转换为data，设置请求体
+        request.HTTPBody = [param dataUsingEncoding:NSUTF8StringEncoding];
+        
+    }else {
+        // 默认请求头方式
+        
+        //设置请求体
+        NSString *param = [self params2String:params];
+        //    NSLog(@"post param = %@", param);
+        //把拼接后的字符串转换为data，设置请求体
+        request.HTTPBody = [param dataUsingEncoding:NSUTF8StringEncoding];
+        
+    }
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        if (error) {
+            CallMainThread(failblock(error, error.description););
+        }else {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            //            NSLog(@"post dict:%@",dict);
+            CallMainThread(successblock([CJHTTPRequest toJSONString:dict], tag););
+        }
+        
+    }];
+    
+    [dataTask resume];
+}
+
++(void)FormMethod:(NSString*)method Tag:(int)tag FormParams:(FormParamsBlock)formblock Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
+    [self FormURL:[CJHTTPConfig getDefaultURL] Method:method Tag:tag FormParams:formblock Success:successblock Fail:failblock];
+}
+
++(void)FormURL:(NSString*)url Method:(NSString*)method Tag:(int)tag FormParams:(FormParamsBlock)formblock Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSMutableString *urlMutStr = [[NSMutableString alloc]init];
+    [urlMutStr appendString:url];
+    if (method) {
+        [urlMutStr appendString:[NSString stringWithFormat:@"/%@", method]];
+    }
+    NSString *urlStr = [urlMutStr copy];
+    //转码
+    urlStr= [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *httpUrl = [NSURL URLWithString:urlStr];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:httpUrl];
+    request.timeoutInterval = DATA_TIMEOUT_VALUE;
+    request.HTTPMethod = @"POST";
+    
+    CJHTTPFormModel *formModel = [[CJHTTPFormModel alloc]init];
+    formModel.boundary = @"myBoundary";
+    NSDictionary *header = [formModel getHeadersDictionary];
+    for (NSString* key in [header allKeys]) {
+        [request setValue:[header valueForKey:key] forHTTPHeaderField:key];
+    }
+    formblock(formModel);
+    [formModel appendParamsSeparateEnd];
+    
+    request.HTTPBody = [formModel getFormData];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -101,6 +214,10 @@ static NSMutableArray* _downloadArr;
 
 + (void)downloadDataWithURL:(NSString*)url SaveFilePath:(NSString*)filepath Tag:(int)tag Progress:(ProgressBlock)progress Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
 {
+//    _successBlock = successblock;
+//    _progressBlock = progress;
+//    _failBlock = failblock;
+//    _filePath = filepath;
     
     // 获得NSURLSession对象
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[[NSOperationQueue alloc] init]];

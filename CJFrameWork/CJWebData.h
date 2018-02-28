@@ -14,6 +14,8 @@
 /**上传任务超时默认设置,单位秒 */
 #define UPLOAD_TIMEOUT_VALUE 3600.0
 
+#define NEWERROR(x) [NSError errorWithDomain:@"CJWebServiceError" code:x userInfo:nil]
+
 typedef NS_ENUM(NSInteger, CJWebServiceError) {
     CJWebServiceError_NoError = 0,                      // 无错误
     CJWebServiceError_ConnectTimeout = 10000,           // 连接超时

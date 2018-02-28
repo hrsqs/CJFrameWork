@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "CJWebData.h"
 
-#define NEWERROR(x) [NSError errorWithDomain:@"CJWebServiceError" code:x userInfo:nil]
 
 typedef void (^ResultBlock)(NSError* error, NSString* result);
 
