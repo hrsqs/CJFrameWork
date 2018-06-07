@@ -42,6 +42,21 @@ static NSMutableArray* _downloadArr;
 
 +(void)GetURL:(NSString*)url Method:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
 {
+    [CJHTTPRequest GetURL:url Method:method Header:nil Params:params Tag:tag Success:successblock Fail:failblock];
+}
+
++(void)PostURL:(NSString*)url Method:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
+    [CJHTTPRequest PostURL:url Method:method Header:nil Params:params Tag:tag Success:successblock Fail:failblock];
+}
+
++(void)GetMethod:(NSString*)method ParamsString:(NSString*)paramsStr Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
+    [CJHTTPRequest GetURL:[CJHTTPConfig getDefaultURL] Method:method ParamsString:paramsStr Tag:tag Success:successblock Fail:failblock];
+}
+
++(void)GetURL:(NSString*)url Method:(NSString*)method ParamsString:(NSString*)paramsStr Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSMutableString *urlMutStr = [[NSMutableString alloc]init];
@@ -49,13 +64,13 @@ static NSMutableArray* _downloadArr;
     if (method) {
         [urlMutStr appendString:[NSString stringWithFormat:@"/%@", method]];
     }
-    if (params) {
-        [urlMutStr appendString:[NSString stringWithFormat:@"?%@", [self params2String:params]]];
+    if (paramsStr) {
+        [urlMutStr appendString:paramsStr];
     }
     NSString *urlStr = [urlMutStr copy];
     //转码
     urlStr= [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//    NSLog(@"get url = %@", urlStr);
+    //    NSLog(@"get url = %@", urlStr);
     NSURL *httpUrl = [NSURL URLWithString:urlStr];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:httpUrl];
@@ -68,7 +83,7 @@ static NSMutableArray* _downloadArr;
             CallMainThread(failblock(error, error.description););
         }else {
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-//            NSLog(@"get dict:%@",dict);
+            //            NSLog(@"get dict:%@",dict);
             CallMainThread(successblock([CJHTTPRequest toJSONString:dict], tag););
         }
         
@@ -77,9 +92,22 @@ static NSMutableArray* _downloadArr;
     [dataTask resume];
 }
 
-+(void)PostURL:(NSString*)url Method:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
++(void)GetJsonMethod:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
 {
-    [CJHTTPRequest PostURL:url Method:method Header:nil Params:params Tag:tag Success:successblock Fail:failblock];
+    [CJHTTPRequest GetJsonURL:[CJHTTPConfig getDefaultURL] Method:method Params:params Tag:tag Success:successblock Fail:failblock];
+}
+
++(void)GetJsonURL:(NSString*)url Method:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
+    NSDictionary* header = [[NSMutableDictionary alloc]initWithObjectsAndKeys:
+                            @"application/json", @"accept",
+                            @"application/json", @"Content-Type",
+                            @"application/json", @"Accept-Encoding",
+                            @"utf-8",@"charset",
+                            @"", @"Authorization",
+                            nil];
+    
+    [CJHTTPRequest GetURL:url Method:method Header:header Params:params Tag:tag Success:successblock Fail:failblock];
 }
 
 +(void)PostJsonMethod:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
@@ -98,6 +126,64 @@ static NSMutableArray* _downloadArr;
                             nil];
     
     [CJHTTPRequest PostURL:url Method:method Header:header Params:params Tag:tag Success:successblock Fail:failblock];
+}
+
++(void)GetMethod:(NSString*)method Header:(NSDictionary*)header Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
+    [CJHTTPRequest GetURL:[CJHTTPConfig getDefaultURL] Method:method Header:header Params:params Tag:tag Success:successblock Fail:failblock];
+}
+
++(void)GetURL:(NSString*)url Method:(NSString*)method Header:(NSDictionary*)header Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock
+{
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSMutableString *urlMutStr = [[NSMutableString alloc]init];
+    [urlMutStr appendString:url];
+    if (method) {
+        [urlMutStr appendString:[NSString stringWithFormat:@"/%@", method]];
+    }
+    if (params) {
+        [urlMutStr appendString:[NSString stringWithFormat:@"?%@", [self params2String:params]]];
+    }
+    NSString *urlStr = [urlMutStr copy];
+    //转码
+    urlStr= [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    //    NSLog(@"get url = %@", urlStr);
+    NSURL *httpUrl = [NSURL URLWithString:urlStr];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:httpUrl];
+    request.timeoutInterval = DATA_TIMEOUT_VALUE;
+    request.HTTPMethod = @"GET";
+    
+    if (header) {
+        // Json请求头方式
+        
+        for (NSString* key in [header allKeys]) {
+            [request setValue:[header valueForKey:key] forHTTPHeaderField:key];
+        }
+        
+        //设置请求体
+        NSString *param = [CJHTTPRequest toJSONString:params];
+        //    NSLog(@"post param = %@", param);
+        //把拼接后的字符串转换为data，设置请求体
+        request.HTTPBody = [param dataUsingEncoding:NSUTF8StringEncoding];
+    }else {
+        
+    }
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        if (error) {
+            CallMainThread(failblock(error, error.description););
+        }else {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            //            NSLog(@"get dict:%@",dict);
+            CallMainThread(successblock([CJHTTPRequest toJSONString:dict], tag););
+        }
+        
+    }];
+    
+    [dataTask resume];
 }
 
 +(void)PostMethod:(NSString*)method Header:(NSDictionary*)header Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock

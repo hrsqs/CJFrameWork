@@ -34,9 +34,20 @@ typedef void (^FormParamsBlock)(CJHTTPFormModel *formModel);
 +(void)GetURL:(NSString*)url Method:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
 +(void)PostURL:(NSString*)url Method:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
 
++(void)GetMethod:(NSString*)method ParamsString:(NSString*)paramsStr Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
++(void)GetURL:(NSString*)url Method:(NSString*)method ParamsString:(NSString*)paramsStr Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
+
+// Json请求头的GET请求
++(void)GetJsonMethod:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
++(void)GetJsonURL:(NSString*)url Method:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
+
 // Json请求头的POST请求
 +(void)PostJsonMethod:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
 +(void)PostJsonURL:(NSString*)url Method:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
+
+// 自定义请求头的Get请求
++(void)GetMethod:(NSString*)method Header:(NSDictionary*)header Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
++(void)GetURL:(NSString*)url Method:(NSString*)method Header:(NSDictionary*)header Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
 
 // 自定义请求头的POST请求
 +(void)PostMethod:(NSString*)method Header:(NSDictionary*)header Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
