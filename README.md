@@ -1,4 +1,4 @@
-# CJFrameWork (1.6.1)
+# CJFrameWork (1.6.2)
 
 1. WebService 服务器交互框架
 2. HTTP 服务器请求协议

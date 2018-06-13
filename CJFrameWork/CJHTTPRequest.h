@@ -45,6 +45,10 @@ typedef void (^FormParamsBlock)(CJHTTPFormModel *formModel);
 +(void)PostJsonMethod:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
 +(void)PostJsonURL:(NSString*)url Method:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
 
+// Json请求头的Put请求
++(void)PutJsonMethod:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
++(void)PutJsonURL:(NSString*)url Method:(NSString*)method Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
+
 // 自定义请求头的Get请求
 +(void)GetMethod:(NSString*)method Header:(NSDictionary*)header Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
 +(void)GetURL:(NSString*)url Method:(NSString*)method Header:(NSDictionary*)header Params:(NSDictionary*)params Tag:(int)tag Success:(SuccessBlock)successblock Fail:(FailureBlock)failblock;
